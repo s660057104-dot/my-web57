@@ -1,0 +1,219 @@
+/* --- 1. ตั้งค่าตัวแปรสี (Modern Palette) --- */
+:root {
+    --primary: #e63307;      /* น้ำเงินเข้ม (Deep Blue) */
+    --accent: #FF5722;       /* ส้มสด (Vibrant Orange) */
+    --accent-light: #FF8A65; /* ส้มอ่อน (ไล่สี) */
+    --text-dark: #1a1a1a;
+    --text-gray: #666;
+    --bg-light: #F9FAFB;     /* พื้นหลังเทาจางๆ สบายตา */
+}
+
+/* Base Styles */
+body {
+    font-family: 'Prompt', sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    line-height: 1.8;
+    background-color: var(--bg-light);
+    overflow-x: hidden; /* ป้องกันหน้าจอเลื่อนซ้ายขวา */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 2. Hero Section (พระเอกของงาน) --- */
+.hero-parallax {
+    height: 100vh; /* สูงเกือบเต็มจอ */
+    background-size: cover;
+    background-position: center;
+    background-position: center 25% !important;
+    /* 🔥 Key Code: ทำให้พื้นหลังนิ่งเวลาเลื่อนเมาส์ (Parallax) */
+    background-attachment: fixed; 
+    
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* หน้ากากสีน้ำเงินทับภาพ เพื่อให้อ่านตัวหนังสือออก */
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* ไล่สีจากน้ำเงินเข้ม ไปใสนิดๆ */
+    background: linear-gradient(135deg, rgba(0,45,86,0.9) 0%, rgba(0,45,86,0.7) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    color: white;
+    z-index: 1;
+    /* Animation: ลอยขึ้นมาเบาๆ */
+    animation: fadeUp 1s ease-out;
+}
+
+/* ป้ายเล็กๆ บนหัวข้อ */
+.badge-orange {
+    background: var(--accent);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.3); /* เงาตัวหนังสือ */
+}
+
+.hero-desc {
+    font-size: 1.25rem;
+    font-weight: 300;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* --- 3. Content Styling --- */
+.main-content {
+    padding: 80px 0;
+}
+
+/* กล่องคำคมตรงกลาง */
+.quote-box {
+    margin-bottom: 100px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+/* 🔥 Key Code: ตัวหนังสือสีรุ้ง/ไล่สี (Gradient Text) */
+.gradient-text {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(45deg, var(--primary), var(--accent));
+    background-clip: text;              /* มาตรฐาน (บรรทัดนี้จะช่วยลดคำเตือน) */
+    -webkit-background-clip: text;      /* สำหรับ Chrome/Safari */
+    -webkit-text-fill-color: transparent; /* เจาะตัวหนังสือให้เห็นสีพื้นหลัง */
+    margin-bottom: 10px;
+}
+
+/* --- 4. Feature Rows (Zig-Zag) --- */
+.feature-row {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+    margin-bottom: 120px; /* เว้นห่างกันเยอะๆ ให้ดูแพง */
+}
+
+.feature-text { flex: 1; position: relative; }
+.feature-image { flex: 1; }
+
+/* ตัวเลขพื้นหลังจางๆ (01, 02) */
+.number-bg {
+    font-size: 8rem;
+    font-weight: 900;
+    color: rgba(0,0,0,0.03); /* จางมากๆ */
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    z-index: -1;
+    line-height: 1;
+}
+
+.feature-text h3 {
+    font-size: 2rem;
+    color: var(--primary);
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.feature-text p {
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+}
+
+/* แต่งรูปภาพให้นูนออกมา */
+.feature-image img {
+    width: 100%;
+    border-radius: 20px; /* มุมมน */
+    /* 🔥 Key Code: เงาลึก (Deep Shadow) ให้รูปลอย */
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+    transition: transform 0.4s ease; /* เอฟเฟกต์เวลาขยับ */
+}
+
+/* เอฟเฟกต์: เอาเมาส์ชี้รูปแล้วรูปลอยขึ้น */
+.feature-image img:hover {
+    transform: translateY(-10px);
+}
+
+/* รายการแบบมีติ๊กถูก */
+.check-list { list-style: none; padding: 0; }
+.check-list li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: var(--primary);
+}
+/* สร้างติ๊กถูกหน้าข้อความด้วย CSS */
+.check-list li::before {
+    content: '✓';
+    color: var(--accent);
+    font-weight: 900;
+    margin-right: 10px;
+}
+
+/* สลับด้าน (Reverse) */
+.feature-row.reverse {
+    flex-direction: row-reverse; /* สลับซ้ายขวา */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    border-top: 1px solid #eee;
+}
+/* นี่คือคำสั่งที่สั่งให้เรียงแนวนอน */
+.navbar-right {
+    display: flex !important;  /* <--- คำสั่งนี้แหละครับ */
+    align-items: center !important;
+}
+
+.menu-list {
+    display: flex !important; /* <--- และคำสั่งนี้ */
+    gap: 25px !important;
+}
+/* Animation Keyframes */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* มือถือ */
+@media (max-width: 768px) {
+    .hero-title { font-size: 2.5rem; }
+    .feature-row, .feature-row.reverse {
+        flex-direction: column-reverse; /* เรียงลงมา รูปอยู่บน */
+        gap: 40px;
+        margin-bottom: 80px;
+    }
+    .gradient-text { font-size: 2rem; }
+}

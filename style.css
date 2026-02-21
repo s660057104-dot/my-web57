@@ -1,0 +1,580 @@
+/* =========================================
+   1. CORE SETUP
+========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Sarabun:wght@300;400;600&display=swap');
+
+:root {
+  --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+  --gold-primary: #bf953f;
+  --dark-bg: #09090b;
+  --card-bg: #141416;
+  --text-grey: #a1a1aa;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Sarabun', sans-serif;
+  background-color: var(--dark-bg);
+  color: white;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  background-image: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #000000 100%);
+  position: relative;
+}
+
+/* =========================================
+   2. SCROLLBAR
+========================================= */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-primary) #1a1a1a;
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #1a1a1a; }
+::-webkit-scrollbar-thumb { background: var(--gold-primary); border-radius: 4px; }
+
+/* =========================================
+   3. SIDEBAR
+========================================= */
+.sidebar {
+  width: 280px;
+  background: rgba(15, 15, 20, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  flex-shrink: 0;
+}
+
+.logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 50px;
+  
+  /* แก้ไขให้ถูกต้องตามมาตรฐาน */
+  background: var(--gold-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  
+  filter: drop-shadow(0 0 5px rgba(191, 149, 63, 0.5));
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.menu-item {
+  text-decoration: none;
+  color: var(--text-grey);
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.menu-item span.icon {
+  margin-right: 15px;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.menu-item:hover, .menu-item.active {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  border-color: rgba(191, 149, 63, 0.3);
+  transform: translateX(5px);
+}
+
+.menu-item:hover span.icon, .menu-item.active span.icon {
+  color: #fcf6ba;
+  text-shadow: 0 0 10px var(--gold-primary);
+}
+
+/* =========================================
+   4. MAIN CONTENT
+========================================= */
+.main-content {
+  flex-grow: 1;
+  padding: 40px 60px;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+header { margin-bottom: 50px; }
+
+header h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+  line-height: 1.2;
+}
+
+header p {
+  color: var(--gold-primary);
+  font-size: 0.9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-left: 3px solid var(--gold-primary);
+  padding-left: 15px;
+  margin-top: 15px;
+}
+
+/* =========================================
+   5. BENTO GRID
+========================================= */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 260px;
+  gap: 20px;
+  padding-bottom: 50px; /* ลด Padding ลงเพราะไม่มีแชทบังแล้ว */
+}
+
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.4s ease; /* ใช้ transition ปกติแทน JS */
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+  filter: grayscale(30%) brightness(0.7);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 25px;
+  z-index: 3;
+  transform: translateY(10px);
+  transition: transform 0.4s ease;
+}
+
+.tag {
+  font-size: 0.7rem;
+  color: var(--gold-primary);
+  background: rgba(0,0,0,0.8);
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  margin-bottom: 8px;
+  border: 1px solid rgba(191, 149, 63, 0.3);
+}
+
+.card h3 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem;
+  margin: 0;
+  color: white;
+  line-height: 1.3;
+}
+
+/* Hover Effect */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  border-color: var(--gold-primary);
+}
+
+.card:hover .card-img {
+  transform: scale(1.1);
+  filter: grayscale(0%) brightness(1);
+}
+
+.card:hover .card-content {
+  transform: translateY(0);
+}
+
+/* Grid Layout */
+.span-2-col { grid-column: span 2; }
+.span-2-row { grid-row: span 2; }
+.span-full { grid-column: span 4; }
+
+/* Images */
+    /* ..  หมายถึง "ถอยออกจากโฟลเดอร์ CSS"
+       /img หมายถึง "เดินเข้าโฟลเดอร์ img" 
+    */
+.img-yi-peng {
+    background-image: url('../img/yi-peng.jpg');
+    background-size: cover; 
+  background-position: center;
+}
+.img-khon {
+  background-image: url('../img/khon.jpg');
+  background-size: cover; 
+  background-position: center;
+  /* ----------------------- */
+}
+.img-temple {
+  background-image: url('../img/temple.jpg');
+  background-size: cover; 
+  background-position: center;
+  /* ----------------------- */
+}
+.img-phi-ta-khon {
+  background-image: url('../img/phi-ta-khon.jpg');
+  background-size: cover; 
+  background-position: center;
+  /* ----------------------- */
+}
+.img-songkran {
+  background-image: url('../img/songkran.jpg');
+  background-size: cover; 
+  background-position: center;
+  /* ----------------------- */
+}
+
+/* =========================================
+   6. RESPONSIVE
+========================================= */
+@media (max-width: 768px) {
+  body { flex-direction: column; height: auto; min-height: 100vh; overflow: auto; }
+  .sidebar { width: 100%; padding: 20px; border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+  .nav-links { flex-direction: row; overflow-x: auto; padding-bottom: 5px; gap: 10px; }
+  .menu-item { white-space: nowrap; flex-shrink: 0; }
+  .main-content { padding: 20px; height: auto; overflow: visible; }
+  header h1 { font-size: 2.5rem; }
+  .bento-grid { grid-template-columns: 1fr; gap: 15px; }
+  .span-2-col, .span-2-row, .span-full { grid-column: span 1; grid-row: span 1; }
+}
+/* ==================================================
+   ส่วนที่เพิ่มใหม่: WIX STYLE NAVBAR (วางล่างสุด)
+   ================================================== */
+
+/* 1. กล่องเมนูหลัก */
+.wix-navbar {
+    position: fixed;        /* ลอยอยู่บนสุด */
+    top: 0; left: 0;
+    width: 100%;            /* กว้างเต็มจอ */
+    height: 80px;           /* ความสูง */
+    
+    display: flex;          /* จัดเรียงแนวนอน */
+    justify-content: space-between; /* กระจาย ซ้าย-กลาง-ขวา */
+    align-items: center;    /* กึ่งกลางแนวตั้ง */
+    
+    padding: 0 40px;        /* เว้นขอบซ้ายขวา */
+    background-color: #09090b; /* สีพื้นหลังดำ */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 99999;         /* เลขเยอะๆ ให้อยู่บนสุดเสมอ */
+    box-sizing: border-box; /* กันทะลุจอ */
+}
+
+/* 2. โลโก้ */
+.wix-logo {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-decoration: none !important; /* บังคับลบเส้นใต้ */
+    font-family: sans-serif;
+}
+
+/* 3. กลุ่มเมนู */
+.wix-menu {
+    display: flex;          /* เรียงแนวนอน */
+    gap: 30px;              /* ระยะห่างแต่ละคำ */
+}
+
+/* 4. ตัวลิงก์ */
+.wix-item {
+    text-decoration: none !important; /* บังคับลบเส้นใต้ */
+    color: #b0b0b0;         /* สีเทา */
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding: 5px 10px;      /* เพิ่มพื้นที่คลิก */
+}
+
+/* เอฟเฟกต์ตอนชี้ */
+.wix-item:hover {
+    color: #ffffff;         /* เปลี่ยนเป็นสีขาว */
+    transform: translateY(-2px); /* ลอยขึ้นนิดนึง */
+}
+
+/* 5. ปุ่มขวา */
+.wix-btn {
+    text-decoration: none !important;
+    background-color: #D4AF37; /* สีทอง */
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.wix-btn:hover {
+    background-color: #fff;
+    transform: scale(1.05);
+}
+
+/* แก้ไขมือถือ (ซ่อนเมนูชั่วคราว) */
+@media (max-width: 768px) {
+    .wix-navbar { padding: 0 20px; }
+    .wix-menu { display: none; }
+}
+/* ==================================================
+   FORCE OVERRIDE NAVBAR (วางล่างสุดของไฟล์เท่านั้น)
+   ================================================== */
+
+/* 1. กล่องเมนูหลัก (พื้นหลังขาว/เทา ตามสไตล์ WIX/GOV) */
+.my-custom-navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 70px !important;
+    
+    background-color: #ffffff !important; /* เปลี่ยนเป็น #09090b ถ้าอยากได้สีดำ */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+    
+    display: flex !important;
+    justify-content: space-between !important; /* ดันซ้าย-ขวา */
+    align-items: center !important;
+    padding: 0 50px !important;
+    z-index: 99999 !important;
+    box-sizing: border-box !important;
+}
+
+/* 2. โลโก้ */
+.brand-logo {
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+    color: #333333 !important; /* สีดำเข้ม */
+    text-decoration: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    font-family: sans-serif !important;
+}
+
+/* 3. จัดระเบียบเมนูขวา */
+.navbar-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 30px !important;
+}
+
+/* 4. รายการเมนู (ลบจุด bullet point) */
+.menu-list {
+    display: flex !important;
+    gap: 25px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* 5. ตัวหนังสือลิงก์ */
+.menu-link {
+    text-decoration: none !important;
+    color: #555555 !important; /* สีเทาเข้ม */
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    font-family: 'Sarabun', sans-serif !important;
+    transition: color 0.3s !important;
+}
+
+.menu-link:hover {
+    color: #D4AF37 !important; /* ชี้แล้วเป็นสีทอง */
+}
+
+/* 6. ปุ่มค้นหา/ภาษา (ตกแต่งเพิ่มเติม) */
+.action-buttons {
+    display: flex !important;
+    align-items: center !important;
+    gap: 15px !important;
+    padding-left: 20px !important;
+    border-left: 1px solid #ddd !important; /* เส้นขีดคั่น */
+}
+
+.lang-btn {
+    background: #000 !important;
+    color: #fff !important;
+    padding: 5px 10px !important;
+    border-radius: 20px !important;
+    font-size: 0.8rem !important;
+    text-decoration: none !important;
+}
+
+/* แก้ไขกรณีหน้าจอมือถือ */
+@media (max-width: 768px) {
+    .my-custom-navbar { padding: 0 20px !important; }
+    .menu-list { display: none !important; } /* ซ่อนเมนูชั่วคราว */
+}
+/* =======================================================
+   อัปเกรด HTML เดิมให้หรูหรา + มีลูกเล่น (ไม่ต้องแก้ HTML)
+   ======================================================= */
+
+/* 1. จัดกล่องหลักให้ลอยและโปร่งแสง */
+.my-custom-navbar {
+    position: fixed;            /* ลอยติดจอ */
+    top: 0; left: 0; width: 100%;
+    height: 70px;
+    background-color: rgba(0, 0, 0, 0.85); /* สีดำโปร่งแสง */
+    backdrop-filter: blur(8px);       /* เบลอฉากหลังให้ดูแพง */
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3); /* ขอบทองจางๆ */
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;    /* จัดให้อยู่กลางจอ (หรือ flex-end ถ้าอยากชิดขวา) */
+}
+
+/* 2. บังคับให้เมนูเรียงเป็น "แนวนอน" และ "ลบจุด" */
+.menu-list {
+    display: flex;              /* คำสั่งหัวใจสำคัญ! เรียงแนวนอน */
+    gap: 30px;                  /* ระยะห่างแต่ละคำ */
+    list-style: none;           /* ลบจุด Bullet Point ทิ้ง */
+    margin: 0; padding: 0;
+}
+
+/* 3. แต่งตัวหนังสือลิงก์ให้สวย */
+.menu-link {
+    text-decoration: none;      /* ลบเส้นใต้เดิม */
+    color: #b0b0b0;             /* สีเทาอ่อน */
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 10px 0;            /* เพิ่มพื้นที่ให้หายใจ */
+    position: relative;         /* เตรียมไว้สำหรับลูกเล่นเส้นวิ่ง */
+    transition: color 0.3s ease;
+}
+
+/* --- 🔥 ลูกเล่นที่ 1: เส้นทองวิ่งตัดผ่าน (Underline Animation) --- */
+.menu-link::after {
+    content: '';
+    position: absolute;
+    width: 0%;                  /* เริ่มต้นความกว้าง 0 (มองไม่เห็น) */
+    height: 2px;                /* ความหนาเส้น */
+    bottom: 0; left: 0;
+    background-color: #D4AF37;  /* สีทอง */
+    transition: width 0.3s ease; /* เอฟเฟกต์วิ่งวูบวาบ */
+    box-shadow: 0 0 10px #D4AF37; /* เงาเส้น */
+}
+
+/* --- 🔥 ลูกเล่นที่ 2: ตอนเอาเมาส์ชี้ (Hover) --- */
+.menu-link:hover {
+    color: #ffffff;             /* เปลี่ยนเป็นสีขาว */
+    text-shadow: 0 0 10px rgba(212, 175, 55, 0.8); /* แสงฟุ้งสีทอง (Glow) */
+}
+
+/* สั่งให้เส้นยืดออกเต็มความกว้างตอนชี้ */
+.menu-link:hover::after {
+    width: 100%;
+}
+/* ==============================================================
+   LUXURY GOLD FRAMES (เมนูกรอบทองสุดหรู)
+   ============================================================== */
+
+/* 1. กล่องเมนูหลัก (พื้นหลังดำสนิท ขอบทองบนล่าง) */
+.luxury-nav {
+    position: fixed;        /* ลอยติดจอ */
+    top: 20px;              /* เว้นจากขอบบนนิดนึงให้ดูเหมือนลอย */
+    left: 50%;              /* จัดกึ่งกลาง */
+    transform: translateX(-50%); /* ดึงกลับมาให้กลางเป๊ะ */
+    
+    width: 90%;             /* กว้าง 90% ของจอ */
+    max-width: 1000px;      /* ไม่กว้างเกิน 1000px */
+    padding: 15px 30px;     /* พื้นที่ภายใน */
+    
+    background-color: rgba(0, 0, 0, 0.9); /* ดำเกือบสนิท */
+    border: 2px solid #D4AF37; /* 🔥 กรอบทองรอบกล่องใหญ่ */
+    border-radius: 50px;    /* ทำเป็นทรงแคปซูลมนๆ */
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5); /* แสงฟุ้งสีทอง */
+    
+    z-index: 9999;          /* อยู่บนสุด */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. จัดเรียงแนวนอน (ลบจุดรายการทิ้ง) */
+.luxury-menu {
+    list-style: none;       /* ลบจุด Bullet */
+    margin: 0; 
+    padding: 0;
+    display: flex;          /* เรียงแนวนอน */
+    gap: 20px;              /* ระยะห่างระหว่างปุ่ม */
+    flex-wrap: wrap;        /* ถ้าจอเล็กให้ปัดลงบรรทัดใหม่ได้ */
+    justify-content: center;
+}
+
+/* 3. ดีไซน์ปุ่ม (กรอบทองรายตัว) */
+.luxury-btn {
+    text-decoration: none;  /* ลบเส้นใต้ */
+    color: #D4AF37;         /* ตัวหนังสือสีทอง */
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px 25px;     /* ขนาดปุ่ม */
+    
+    /* 🔥 สร้างกรอบทองให้แต่ละปุ่ม */
+    border: 1px solid #D4AF37; 
+    border-radius: 30px;    /* ปุ่มมน */
+    background-color: transparent;
+    transition: all 0.3s ease; /* เอฟเฟกต์นุ่มนวล */
+    text-transform: uppercase; /* ตัวใหญ่หมด (ภาษาอังกฤษ) */
+    display: inline-block;
+}
+
+/* 4. เอฟเฟกต์ตอนชี้ (Hover) และตอนเลือก (Active) */
+.luxury-btn:hover,
+.luxury-btn.active {
+    background-color: #D4AF37; /* ถมสีทองเต็มปุ่ม */
+    color: #000000;            /* ตัวหนังสือเปลี่ยนเป็นสีดำ */
+    box-shadow: 0 0 15px #D4AF37; /* แสงวิบวับ */
+    transform: translateY(-3px);  /* ลอยขึ้น */
+    border-color: #D4AF37;
+}
+
+/* 5. แก้ไขสำหรับมือถือ (Mobile) ให้เมนูไม่ตกขอบ */
+@media (max-width: 768px) {
+    .luxury-nav {
+        width: 95%;
+        top: 10px;
+        padding: 10px;
+        border-radius: 20px;
+    }
+    .luxury-menu {
+        gap: 10px;
+    }
+    .luxury-btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+}

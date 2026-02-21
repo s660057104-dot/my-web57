@@ -1,0 +1,138 @@
+/* --- CSS/north.css --- */
+
+/* 1. เปลี่ยนโทนสีหลักเป็น ธีมล้านนา (น้ำเงินหม้อฮ่อม + ทอง) */
+:root {
+    --lanna-blue: #1a237e; /* สีน้ำเงินเข้ม */
+    --lanna-gold: #d4af37; /* สีทอง */
+    --mist-white: #f5f7fa; /* สีขาวหมอก */
+}
+
+/* 2. พื้นหลังและฟอนต์ */
+body {
+    background-color: #0f1221; /* พื้นหลังมืดๆ เหมือนกลางคืนยี่เป็ง */
+    font-family: 'Sarabun', sans-serif;
+    color: var(--mist-white);
+}
+
+/* Sidebar ปรับสีให้เข้าธีม */
+.sidebar {
+    background: rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar .logo {
+    font-family: 'Charmonman', cursive; /* ฟอนต์สไตล์ไทย */
+    color: var(--lanna-gold);
+}
+.menu-item.active {
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), transparent);
+    border-left: 4px solid var(--lanna-gold);
+    color: var(--lanna-gold);
+}
+
+/* 3. Header ดีไซน์ใหม่ */
+.north-header {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+    z-index: 2;
+}
+.north-header h4 {
+    color: var(--lanna-gold);
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+.north-header h1 {
+    font-family: 'Charmonman', cursive;
+    font-size: 4rem;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(255,255,255,0.3);
+
+    /* --- ชุดคำสั่งทำสีทอง ไล่เฉด --- */
+    
+    /* 1. ใส่สีพื้นหลัง (Gradient) ก่อนเสมอ */
+    background: linear-gradient(to bottom, #fff, #aaa);
+    
+    /* 2. สั่งตัดขอบพื้นหลังตามตัวอักษร (ใส่ทั้ง 2 บรรทัด เพื่อกันเหนียว) */
+    background-clip: text;              /* มาตรฐานใหม่ */
+    -webkit-background-clip: text;      /* สำหรับ Chrome/Safari */
+    
+    /* 3. สั่งให้ตัวหนังสือโปร่งใส (เพื่อให้สีพื้นหลังโผล่ออกมา) */
+    color: transparent;                 /* มาตรฐานใหม่ */
+    -webkit-text-fill-color: transparent; /* สำหรับ Chrome/Safari */
+}
+.header-line {
+    width: 100px;
+    height: 3px;
+    background: var(--lanna-gold);
+    margin: 20px auto;
+}
+
+/* 4. ปรับแต่งการ์ดเพิ่มเติม */
+.card {
+    border: 1px solid rgba(212, 175, 55, 0.3); /* ขอบสีทองบางๆ */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.tag {
+    background-color: var(--lanna-gold);
+    color: #000;
+    font-weight: 600;
+}
+.desc {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-top: 5px;
+    font-weight: 300;
+}
+
+/* 5. Animation โคมลอย (Lanterns) */
+.lantern-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; /* ให้คลิกทะลุได้ */
+    z-index: 0;
+    overflow: hidden;
+}
+
+.lantern {
+    position: absolute;
+    bottom: -50px;
+    background: radial-gradient(circle, #ffeb3b, #ff9800);
+    width: 20px;
+    height: 30px;
+    border-radius: 50% 50% 0 0;
+    opacity: 0.6;
+    box-shadow: 0 0 20px #ff9800;
+    animation: floatUp 15s linear infinite;
+}
+/* กำหนดขนาดการจองพื้นที่ */
+.span-2-col {
+    grid-column: span 2;
+}
+
+.span-2-row {
+    grid-row: span 2;
+}
+
+/* ถ้าอยากให้ตัวยี่เป็งใหญ่พิเศษ (2x2) */
+.span-2-col.span-2-row {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+/* สร้างโคมหลายๆ ลูก ลอยไม่พร้อมกัน */
+.l1 { left: 20%; animation-duration: 12s; width: 30px; height: 40px; }
+.l2 { left: 70%; animation-duration: 18s; animation-delay: 2s; }
+.l3 { left: 50%; animation-duration: 15s; animation-delay: 5s; width: 15px; height: 25px; }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .north-header h1 { font-size: 2.5rem; }
+}
