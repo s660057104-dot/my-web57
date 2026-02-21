@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ประเพณีทยมีอะไรบ้าง</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- ตั้งค่าพื้นฐาน --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: radial-gradient(circle at center, #dcdcdc 0%, #b0b0b0 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* --- กรอบหลัก --- */
+        .tribute-card {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            height: 80vh;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tribute-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('image_5.png'); /* ตรวจสอบว่ามีไฟล์นี้จริงหรือไม่ */
+            background-size: cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+
+        /* --- ส่วนรูปภาพ --- */
+        .image-section {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            display: flex; /* จัดรูปให้อยู่ตรงกลางกรอบของมัน */
+            justify-content: center;
+            align-items: flex-end; /* ให้รูปชิดล่าง */
+        }
+
+        .queen-image {
+            width: auto; /* ปรับเป็น auto เพื่อรักษาสัดส่วน */
+            max-width: 100%; /* ไม่ให้เกินกรอบ */
+            height: 90%; /* ให้สูงเกือบเต็มกรอบ */
+            object-fit: contain;
+            filter: drop-shadow(10px 0 20px rgba(0,0,0,0.2));
+        }
+
+        /* --- ส่วนข้อความ --- */
+        .text-section {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
+            color: #5e4b35;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        /* --- จุดที่แก้ไข (Fixed) --- */
+        .gold-text {
+            background: linear-gradient(45deg, #b88a44, #e5c585, #b88a44);
+            background-clip: text;            /* เพิ่มบรรทัดนี้ */
+            -webkit-background-clip: text;
+            color: transparent;               /* เพิ่มบรรทัดนี้ */
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            display: inline-block; /* ช่วยให้ Gradient แสดงผลถูกต้องในบาง Browser */
+        }
+
+        .message {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .signer {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .signer strong {
+            display: block;
+            font-size: 1rem;
+            color: #000;
+            margin-bottom: 5px;
+        }
+
+        .btn-enter {
+            display: inline-block;
+            text-decoration: none;
+            padding: 12px 40px;
+            border: 2px solid #b88a44;
+            border-radius: 50px;
+            color: #5e4b35;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .btn-enter:hover {
+            background: #b88a44;
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(184, 138, 68, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .tribute-card {
+                flex-direction: column;
+                height: auto;
+                min-height: 100vh;
+                border-radius: 0;
+            }
+            .image-section {
+                height: 400px;
+                flex: none;
+            }
+            .queen-image {
+                height: 100%;
+            }
+            .text-section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tribute-card">
+        <div class="image-section">
+            <img src="./img/82f5e2-removebg-preview.png" alt="สมเด็จพระนางเจ้าสิริกิติ์" class="queen-image">
+        </div>
+
+        <div class="text-section">
+            <h1>
+                สมเด็จพระนางเจ้าสิริกิติ์ <span class="gold-text">พระบรมราชินีนาถ</span><br>
+                <span class="gold-text">พระบรมราชชนนีพันปีหลวง</span>
+            </h1>
+
+            <p class="message">
+                ด้วยสำนึกในพระมหากรุณาธิคุณเป็นล้นพ้นอันหาที่สุดมิได้<br>
+                จารึกในใจประชาตราบนิรันดร์
+            </p>
+
+            <div class="signer">
+                ข้าพระพุทธเจ้า <strong>นายวงศธร กาฬภักดี</strong>
+                นักศึกษาสาขาคอมพิวเตอร์ธุรกิจมหาลัยเจ้าพระยา
+            </div>
+
+            <a href="home.html" class="btn-enter">เข้าสู่เว็บไซต์</a>
+        </div>
+    </div>
+
+</body>
+</html>
